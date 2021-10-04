@@ -129,7 +129,27 @@ class _AuthCardState extends State<AuthCard> {
           }));
       final body = json.decode(res.body);
       final id = body['localId'];
-
+      print(id); // null in case wrong
+      if (id == null) {
+        print(body['error']['message']);
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(body['error']['message']),
+            content: const Text('try again'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
       if (id != null) {
         await _storage.write(
           key: 'token',
@@ -150,6 +170,26 @@ class _AuthCardState extends State<AuthCard> {
 
       final body = json.decode(res.body);
       final id = body['localId'];
+      if (id == null) {
+        print(body['error']['message']);
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(body['error']['message']),
+            content: const Text('try again'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
       if (id != null) {
         await _storage.write(
           key: 'token',
