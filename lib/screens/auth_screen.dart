@@ -131,11 +131,11 @@ class _AuthCardState extends State<AuthCard> {
       final id = body['localId'];
       print(id); // null in case wrong
       if (id == null) {
-        print(body['error']['message']);
+        var error = 'The email and password you entered do not match';
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text(body['error']['message']),
+            title: Text(error),
             content: const Text('try again'),
             actions: <Widget>[
               TextButton(
@@ -171,11 +171,16 @@ class _AuthCardState extends State<AuthCard> {
       final body = json.decode(res.body);
       final id = body['localId'];
       if (id == null) {
-        print(body['error']['message']);
+        var error = '';
+        if (body['error']['message'] == 'INVALID_EMAIL') {
+          error = 'you should enter a valid email';
+        } else {
+          error = 'password must have 6 characters at least';
+        }
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text(body['error']['message']),
+            title: Text(error),
             content: const Text('try again'),
             actions: <Widget>[
               TextButton(
