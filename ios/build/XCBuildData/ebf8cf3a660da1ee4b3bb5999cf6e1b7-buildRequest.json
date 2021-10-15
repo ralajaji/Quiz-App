@@ -1,0 +1,45 @@
+{
+  "buildCommand" : "prepareForIndexing",
+  "configuredTargets" : [
+    {
+      "guid" : "27295b727b4f1ba2371c6d4f8feaabc79da425bb6d6d5d8dbb95e4afffb82217"
+    },
+    {
+      "guid" : "27295b727b4f1ba2371c6d4f8feaabc7312b4bc59bbbe2c06c205bf4da6737f5"
+    },
+    {
+      "guid" : "27295b727b4f1ba2371c6d4f8feaabc77cb9c58d33d05677fb576674bac57313"
+    }
+  ],
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "",
+      "buildProductsPath" : "",
+      "derivedDataPath" : "/Users/rayyan/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/rayyan/Library/Developer/Xcode/DerivedData/Pods-bdovsbvqvtbudmbppyzomfhsosmx/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/rayyan/Library/Developer/Xcode/DerivedData/Pods-bdovsbvqvtbudmbppyzomfhsosmx/Index/PrecompiledHeaders",
+      "pchPath" : ""
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : true,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : false
+}
