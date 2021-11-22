@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../constants.dart';
 import 'quizzes.dart';
-import 'scoreboard.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -22,6 +22,28 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+        drawer: Drawer(
+          child: Material(
+            color: kPrimaryColor,
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              children: <Widget>[
+                const SizedBox(
+                  height: 48,
+                ),
+                buildMenuItem(
+                  text: 'Logout',
+                  icon: Icons.logout,
+                ),
+              ],
+            ),
+          ),
+        ),
+        appBar: AppBar(
+          backgroundColor: Color(0xFFEBD8FF),
+          elevation: 0.0,
+          iconTheme: IconThemeData(color: kPrimaryColor),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: _selectPage,
           backgroundColor: Colors.white,
@@ -40,9 +62,11 @@ class _TabsScreenState extends State<TabsScreen> {
           children: [
             Container(
               // Here the height of the container is 45% of our total height
-              height: size.height * .35,
+              height: size.height * .25,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
                 color: Color(0xFFEBD8FF),
                 image: DecorationImage(
                   alignment: Alignment.centerLeft,
@@ -69,7 +93,7 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
             )),
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 200, 20, 0),
+              margin: const EdgeInsets.fromLTRB(20, 150, 20, 0),
               child: _pages[_selectedPageIndex],
             ),
             Positioned(
@@ -82,5 +106,30 @@ class _TabsScreenState extends State<TabsScreen> {
             ),
           ],
         ));
+  }
+
+  Widget buildMenuItem({
+    String text,
+    IconData icon,
+  }) {
+    final color = Colors.white;
+    final hoverColor = Colors.white70;
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: color,
+      ),
+      title: Text(
+        text,
+        style: TextStyle(color: color),
+      ),
+      hoverColor: hoverColor,
+      onTap: () async {
+        final _storage = FlutterSecureStorage();
+        await _storage.deleteAll();
+
+        Navigator.pushNamed(context, '/auth');
+      },
+    );
   }
 }

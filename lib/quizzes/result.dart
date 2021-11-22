@@ -17,7 +17,7 @@ class Result extends StatelessWidget {
     String resultText = resultScore.toString();
     savePoints();
 
-    return 'You got ' + resultText + ' / ' + totalQ.toString();
+    return 'Your result is: ' + resultText + ' / ' + totalQ.toString();
   }
 
   savePoints() async {
@@ -51,12 +51,11 @@ class Result extends StatelessWidget {
           Text(' '),
           Center(
             child: Text(
-              // resultPhrase,
-              "Your result is: --- ",
+              resultPhrase,
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
-                // color: Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9)),
+                color: kPrimaryColor,
               ),
               textAlign: TextAlign.center,
             ),

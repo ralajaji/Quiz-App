@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -34,13 +33,6 @@ class ScoreboardState extends State<Scoreboard> {
         strings = b;
         print(strings);
       });
-    }
-
-    void logOut() async {
-      final _storage = FlutterSecureStorage();
-      await _storage.deleteAll();
-
-      Navigator.pushNamed(context, '/auth');
     }
 
     return ListView(
@@ -82,29 +74,7 @@ class ScoreboardState extends State<Scoreboard> {
                       ),
                     ))
                 .toList()),
-        Text(''),
-        Padding(
-          padding: EdgeInsets.only(bottom: 5, top: 500),
-          child: ButtonTheme(
-            height: 56,
-            child: RaisedButton(
-              child: Text('Logout',
-                  style: TextStyle(color: Colors.white, fontSize: 20)),
-              color: Colors.red,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              onPressed: () => logOut(),
-            ),
-          ),
-        ),
       ],
     );
   }
 }
-
-// void logOut() async {
-//   final _storage = FlutterSecureStorage();
-//   await _storage.deleteAll();
-
-//   Navigator.pushNamed(context, '/auth');
-// }
