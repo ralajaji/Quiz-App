@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:teacher_app/screens/openItLater!/scoreboard.dart';
 import '../constants.dart';
+import '../../Api/NotificationApi.dart';
 import 'quizzes.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -9,7 +11,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<Widget> _pages = [Quizzez(), Spacer()];
+  final List<Widget> _pages = [Quizzez(), Scoreboard()];
   int _selectedPageIndex = 0;
 
   void _selectPage(int index) {
@@ -18,6 +20,27 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
+
+    // NotificationApi.showScheduledNotification(
+    //   title: "test notification",
+    //   body: "hey! this massage appears after 6 seconds",
+    //   payload: "testNotification",
+    //   scheduledDate: DateTime.now().add(Duration(seconds: 6)),
+    // );
+  }
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen((onClickedNotification));
+
+  void onClickedNotification(String payload) =>
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Quizzez(),
+      ));
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -35,6 +58,10 @@ class _TabsScreenState extends State<TabsScreen> {
                   text: 'Logout',
                   icon: Icons.logout,
                 ),
+                // buildNotification(
+                //   text: 'Sample Notification',
+                //   icon: Icons.notification_add_sharp,
+                // ),
               ],
             ),
           ),
@@ -131,5 +158,29 @@ class _TabsScreenState extends State<TabsScreen> {
         Navigator.pushNamed(context, '/auth');
       },
     );
+  }
+
+  Widget buildNotification({
+    String text,
+    IconData icon,
+  }) {
+    final color = Colors.white;
+    final hoverColor = Colors.white70;
+    return ListTile(
+        leading: Icon(
+          icon,
+          color: color,
+        ),
+        title: Text(
+          text,
+          style: TextStyle(color: color),
+        ),
+        hoverColor: hoverColor,
+        onTap: () => NotificationApi.showScheduledNotification(
+              title: "test notification",
+              body: "hey! this massage appears after 6 seconds",
+              payload: "testNotification",
+              scheduledDate: DateTime.now().add(Duration(seconds: 6)),
+            ));
   }
 }

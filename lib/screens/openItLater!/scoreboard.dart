@@ -9,6 +9,7 @@ class Scoreboard extends StatefulWidget {
 }
 
 class ScoreboardState extends State<Scoreboard> {
+  final columns = ['Name', 'Points'];
   List<Object> strings = [];
 
   @override
@@ -36,17 +37,10 @@ class ScoreboardState extends State<Scoreboard> {
       });
     }
 
-    void logOut() async {
-      final _storage = FlutterSecureStorage();
-      await _storage.deleteAll();
-
-      Navigator.pushNamed(context, '/auth');
-    }
-
+    // return DataTable(columns: getColumns(columns), rows: setList());
     return ListView(
       padding: const EdgeInsets.all(8),
       children: <Widget>[
-        Text(''),
         Padding(
           padding: EdgeInsets.only(bottom: 5, top: 25),
           child: ButtonTheme(
@@ -61,7 +55,6 @@ class ScoreboardState extends State<Scoreboard> {
             ),
           ),
         ),
-        Text(''),
         Column(
             children: strings
                 .map((item) => Padding(
@@ -82,29 +75,13 @@ class ScoreboardState extends State<Scoreboard> {
                       ),
                     ))
                 .toList()),
-        Text(''),
-        Padding(
-          padding: EdgeInsets.only(bottom: 5, top: 500),
-          child: ButtonTheme(
-            height: 56,
-            child: RaisedButton(
-              child: Text('Logout',
-                  style: TextStyle(color: Colors.white, fontSize: 20)),
-              color: Colors.red,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              onPressed: () => logOut(),
-            ),
-          ),
-        ),
       ],
     );
   }
+
+  List<DataColumn> getColumns(List<String> columns) => columns
+      .map((String column) => DataColumn(
+            label: Text(column),
+          ))
+      .toList();
 }
-
-// void logOut() async {
-//   final _storage = FlutterSecureStorage();
-//   await _storage.deleteAll();
-
-//   Navigator.pushNamed(context, '/auth');
-// }
